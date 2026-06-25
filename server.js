@@ -86,8 +86,16 @@ app.get('/api/info', (req, res) => {
     '--dump-json',
     '--no-warnings',
     '--flat-playlist',
-    videoUrl
+    '--extractor-args', 'youtube:player-client=android,web'
   ];
+
+  // Securely add cookies.txt if provided as a Render Secret File
+  const cookiesPath = path.join(__dirname, 'cookies.txt');
+  if (fs.existsSync(cookiesPath)) {
+    args.push('--cookies', cookiesPath);
+  }
+
+  args.push(videoUrl);
 
   const ytDlp = spawn(pythonCmd, args);
 
@@ -313,7 +321,8 @@ app.get('/api/download-stream', (req, res) => {
     '--newline',
     '--concurrent-fragments', '5',
     '--buffer-size', '1024K',
-    '--postprocessor-args', 'Merger:-strict -2'
+    '--postprocessor-args', 'Merger:-strict -2',
+    '--extractor-args', 'youtube:player-client=android,web'
   ];
 
   // Format selection
@@ -336,6 +345,13 @@ app.get('/api/download-stream', (req, res) => {
 
   // Output file path
   args.push('-o', tempPath);
+
+  // Securely add cookies.txt if provided as a Render Secret File
+  const cookiesPath = path.join(__dirname, 'cookies.txt');
+  if (fs.existsSync(cookiesPath)) {
+    args.push('--cookies', cookiesPath);
+  }
+
   // Add target URL
   args.push(url);
 
@@ -522,8 +538,16 @@ app.get('/api/download', (req, res) => {
     '-m', 'yt_dlp',
     '-f', format,
     '-o', '-',
-    url
+    '--extractor-args', 'youtube:player-client=android,web'
   ];
+
+  // Securely add cookies.txt if provided as a Render Secret File
+  const cookiesPath = path.join(__dirname, 'cookies.txt');
+  if (fs.existsSync(cookiesPath)) {
+    args.push('--cookies', cookiesPath);
+  }
+
+  args.push(url);
 
   const ytDlp = spawn(pythonCmd, args);
 
