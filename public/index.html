@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniDownloader - Free Video & Audio Downloader | YouTube & Instagram</title>
+  <meta name="description" content="OmniDownloader is a fast and free tool to download videos, audio, and posts from YouTube, Instagram, and more in high quality (up to 1080p Full HD) and MP3.">
+  <link rel="canonical" href="http://localhost:3000/">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:3000/">
+  <meta property="og:title" content="OmniDownloader - Free Video & Audio Downloader">
+  <meta property="og:description" content="Download videos, audio, and posts from YouTube, Instagram, and more in high quality instantly. Safe, free, and local.">
+  <meta property="og:image" content="http://localhost:3000/favicon.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="http://localhost:3000/">
+  <meta property="twitter:title" content="OmniDownloader - Free Video & Audio Downloader">
+  <meta property="twitter:description" content="Download videos, audio, and posts from YouTube, Instagram, and more in high quality instantly. Safe, free, and local.">
+  <meta property="twitter:image" content="http://localhost:3000/favicon.png">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "OmniDownloader",
+    "url": "http://localhost:3000/",
+    "image": "http://localhost:3000/favicon.png",
+    "description": "High-quality video and audio downloader supporting YouTube and Instagram.",
+    "applicationCategory": "Utility",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Ambient background blobs -->
+  <div class="ambient-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <div class="container">
+    <!-- Navbar Header -->
+    <nav class="navbar glass-card">
+      <div class="nav-logo">
+        <a href="/">Omni<span>Downloader</span></a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="/about.html">About Us</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Error Alert Box -->
+    <div id="alert-box" class="alert alert-error hidden">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+      <span id="alert-message">Error message goes here</span>
+    </div>
+
+    <!-- URL Input Card -->
+    <div class="glass-card">
+      <form id="url-form">
+        <div class="search-container">
+          <div class="search-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          </div>
+          <input 
+            type="url" 
+            id="url-input" 
+            class="search-input" 
+            placeholder="Paste YouTube or Instagram link here..." 
+            required 
+            autocomplete="off"
+          >
+          <button type="button" id="paste-btn" class="paste-btn">Paste</button>
+          <button type="submit" id="submit-btn" class="search-btn">
+            <span id="btn-text">Analyze Link</span>
+            <div id="btn-spinner" class="spinner hidden"></div>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Loading Skeleton Card -->
+    <div id="skeleton-card" class="glass-card hidden">
+      <div class="media-preview">
+        <div class="thumbnail-container skeleton"></div>
+        <div class="media-details">
+          <div>
+            <div class="skeleton-text skeleton" style="width: 80%; height: 24px;"></div>
+            <div class="skeleton-text skeleton" style="width: 45%; height: 16px;"></div>
+          </div>
+          <div class="skeleton skeleton-btn" style="border-radius: 100px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Media Details Card -->
+    <div id="media-card" class="glass-card hidden">
+      <div id="media-preview-container" class="media-preview">
+        <!-- Thumbnail -->
+        <div class="thumbnail-container">
+          <img id="media-thumb" class="thumbnail-img" src="" alt="Thumbnail">
+          <span id="media-duration" class="duration-tag">00:00</span>
+        </div>
+
+        <!-- Details & Formats -->
+        <div class="media-details">
+          <div>
+            <h2 id="media-title" class="media-title">Video Title</h2>
+            <div class="media-creator">
+              <span class="creator-avatar"></span>
+              <span id="media-uploader">Channel Name</span>
+            </div>
+          </div>
+
+          <div class="tabs-container">
+            <div class="tabs-header">
+              <button type="button" id="tab-video" class="tab-btn active">Video</button>
+              <button type="button" id="tab-audio" class="tab-btn">Audio Only</button>
+            </div>
+
+            <!-- Video Options Panel -->
+            <div id="panel-video" class="tab-pane active">
+              <div id="video-formats" class="options-grid">
+                <!-- Dynamically Populated -->
+              </div>
+            </div>
+
+            <!-- Audio Options Panel -->
+            <div id="panel-audio" class="tab-pane">
+              <div id="audio-formats" class="options-grid">
+                <!-- Dynamically Populated -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Slides for Instagram Posts (if applicable) -->
+      <div id="playlist-section" class="playlist-container hidden">
+        <h3 class="playlist-header">Post Contents (Slides)</h3>
+        <div id="playlist-list" class="playlist-list">
+          <!-- Dynamically Populated -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Download Progress Card -->
+    <div id="progress-card" class="glass-card hidden">
+      <div class="progress-container">
+        <div class="progress-header">
+          <h3 id="progress-file-title" class="progress-title">Downloading Media...</h3>
+          <button type="button" id="cancel-dl-btn" class="cancel-link">Cancel</button>
+        </div>
+        
+        <div class="progress-bar-bg">
+          <div id="progress-bar-fill" class="progress-bar-fill"></div>
+        </div>
+
+        <div id="processing-msg" class="processing-loader hidden">
+          <div class="pulse-dot"></div>
+          <div class="pulse-dot"></div>
+          <div class="pulse-dot"></div>
+          <span id="processing-text">Processing files... Please wait...</span>
+        </div>
+
+        <div id="progress-stats-row" class="progress-stats">
+          <div class="stat-box">
+            <div class="stat-label">Progress</div>
+            <div id="stat-percent" class="stat-val">0%</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Speed</div>
+            <div id="stat-speed" class="stat-val">0 MB/s</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Size</div>
+            <div id="stat-size" class="stat-val">0 MB</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">ETA</div>
+            <div id="stat-eta" class="stat-val">00:00</div>
+          </div>
+        </div>
+        <div class="speed-badge-container">
+          <span class="speed-boost-badge">⚡ Parallel Stream Acceleration (5x Threads) Active</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Downloads Card -->
+    <div id="history-card" class="glass-card hidden">
+      <div class="history-header">
+        <h3 class="history-title">Recent Downloads</h3>
+        <button type="button" id="clear-history-btn" class="clear-history-btn">Clear History</button>
+      </div>
+      <div id="history-list" class="history-list">
+        <!-- Dynamically Populated -->
+      </div>
+    </div>
+
+    <!-- Instructions Card -->
+    <div class="glass-card instructions-card">
+      <h3>Supported Content</h3>
+      <ul>
+        <li><strong>YouTube</strong>: Download videos in Full HD (1080p), HD (720p), SD resolutions, or extract original M4A and converted MP3 audio.</li>
+        <li><strong>Instagram</strong>: Download Reels, Videos, single photos, or entire carousel slides.</li>
+        <li><strong>Unified Engine</strong>: Powered by a local background utility that handles platform updates automatically.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Omni<span>Downloader</span></h3>
+        <p>Your ultimate free media utility for backup and personal offline archiving of public online videos and audio.</p>
+      </div>
+      <div class="footer-links-grid">
+        <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/faq.html">FAQ</a></li>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Legal Policies</h4>
+          <ul>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms & Conditions</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+            <li><a href="/cookie-policy.html">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 OmniDownloader. All rights reserved. Powered by Node.js & yt-dlp. Intended for personal educational backup purposes.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

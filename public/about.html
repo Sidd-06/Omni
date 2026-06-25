@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - OmniDownloader | Free Video & Audio Archival Tool</title>
+  <meta name="description" content="Learn more about OmniDownloader, our mission for private local media archival, our technologies, and our commitment to fair-use and copyright compliance.">
+  <link rel="canonical" href="http://localhost:3000/about.html">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:3000/about.html">
+  <meta property="og:title" content="About Us - OmniDownloader">
+  <meta property="og:description" content="Discover our mission for safe, private local video and audio downloads. Read about our fair-use legal disclaimers.">
+  <meta property="og:image" content="http://localhost:3000/favicon.png">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About OmniDownloader",
+    "url": "http://localhost:3000/about.html",
+    "description": "Information about OmniDownloader, its mission, core team, technology, and compliance policies.",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "OmniDownloader",
+      "logo": "http://localhost:3000/favicon.png",
+      "url": "http://localhost:3000/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Ambient background blobs -->
+  <div class="ambient-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <div class="container">
+    <!-- Navbar Header -->
+    <nav class="navbar glass-card">
+      <div class="nav-logo">
+        <a href="/">Omni<span>Downloader</span></a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="/about.html" class="active">About Us</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content Article -->
+    <article class="glass-card article-content">
+      <h1>About OmniDownloader</h1>
+      <p class="article-lead">OmniDownloader is a local, open-source video and audio archival utility designed to give creators, researchers, and educators full control over their digital media assets.</p>
+
+      <hr>
+
+      <h2>Our Core Mission</h2>
+      <p>In the modern age, online content is highly ephemeral. Creator accounts are deactivated, platforms change their access guidelines, and invaluable educational resources vanish from the web daily. OmniDownloader was founded to address this challenge by providing a safe, privacy-focused tool that executes 100% locally on the user's computer. Our goal is to empower users to preserve their own digital footprints and download public domain content for offline study and backup.</p>
+
+      <h2>The Power of Local Execution</h2>
+      <p>Unlike third-party downloader websites that flood users with malicious redirects, pop-under ads, and trackers, OmniDownloader is designed as a self-contained local utility wrapper. By wrapping the industry-standard scraping engine <code>yt-dlp</code> and compiling it locally with Node.js and a bundled static <code>FFmpeg</code> executable, our downloader works directly on your machine. This local-first architecture provides several distinct advantages:</p>
+      <ul>
+        <li><strong>Privacy Protection</strong>: Your queries and download activities never transit through external database servers. The scraper requests metadata directly from the source site to your browser.</li>
+        <li><strong>Maximum Network Speed</strong>: Since download streams bypass intermediate cloud servers, you download files directly at the maximum speed supported by your home internet connection.</li>
+        <li><strong>No Adware or Redirects</strong>: We keep our website clean, responsive, and completely free of malicious scripts. The interface is styled using modern glassmorphic CSS variables for visual excellence.</li>
+      </ul>
+
+      <h2>Intellectual Property & Fair-Use Compliance</h2>
+      <p>At OmniDownloader, we have a deep respect for intellectual property rights and content creator guidelines. It is important to note that downloading video and audio streams from third-party networks may violate their terms of service. Therefore, our service is strictly conditioned upon compliance with the following copyright directives:</p>
+      
+      <h3>1. Personal Backup of Your Own Content</h3>
+      <p>Creators frequently need local copies of their own uploads for editing, backup, or re-uploading to alternative video sharing sites. OmniDownloader provides an efficient method to download original high-resolution files when platforms do not provide a direct export option.</p>
+
+      <h3>2. Public Domain & Creative Commons Media</h3>
+      <p>Millions of educational, historical, and artistic films are published under the Public Domain or Creative Commons licenses (such as CC-BY). Users are free to download, study, and remix these assets under the respective license guidelines.</p>
+
+      <h3>3. Fair Use Archiving</h3>
+      <p>Under Section 107 of the United States Copyright Act (and equivalent fair-dealing doctrines in other countries), downloading snippets of copyrighted content for purposes such as criticism, commentary, news reporting, teaching, scholarship, or research may constitute a "Fair Use." OmniDownloader is intended to assist researchers in compiling local archives under these educational allowances.</p>
+
+      <blockquote>
+        <strong>Important Warning</strong>: OmniDownloader does not condone, encourage, or facilitate the unauthorized downloading of copyright-protected television shows, movies, commercial music videos, or private accounts. Users are solely responsible for verifying the legal status and ownership rights of any link before analyzing it.
+      </blockquote>
+
+      <h2>Technical Architecture</h2>
+      <p>OmniDownloader is built using a modern, lightweight tech stack designed for local efficiency:</p>
+      <ul>
+        <li><strong>Backend</strong>: Node.js Express server acting as a controller process to parse API requests.</li>
+        <li><strong>Scraping Engine</strong>: Python 3.13 utilizing <code>yt-dlp</code> to read metadata and retrieve direct chunk links.</li>
+        <li><strong>Post-processing</strong>: Static, platform-specific builds of <code>ffmpeg</code> linked inside <code>node_modules</code> to merge video and audio streams into standard MP4 containers dynamically.</li>
+        <li><strong>Frontend</strong>: Modern Vanilla HTML5, CSS3 Grid layouts, and vanilla JavaScript using Server-Sent Events (SSE) to track download chunk percentages in real-time.</li>
+      </ul>
+    </article>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Omni<span>Downloader</span></h3>
+        <p>Your ultimate free media utility for backup and personal offline archiving of public online videos and audio.</p>
+      </div>
+      <div class="footer-links-grid">
+        <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/faq.html">FAQ</a></li>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Legal Policies</h4>
+          <ul>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms & Conditions</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+            <li><a href="/cookie-policy.html">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 OmniDownloader. All rights reserved. Powered by Node.js & yt-dlp. Intended for personal educational backup purposes.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

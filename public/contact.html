@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - OmniDownloader | Free Support & Feedback</title>
+  <meta name="description" content="Get in touch with the OmniDownloader team for support inquiries, feature feedback, technical questions, or policy reports.">
+  <link rel="canonical" href="http://localhost:3000/contact.html">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:3000/contact.html">
+  <meta property="og:title" content="Contact Us - OmniDownloader">
+  <meta property="og:description" content="Have questions or suggestions? Reach out to the OmniDownloader support team via our secure contact form.">
+  <meta property="og:image" content="http://localhost:3000/favicon.png">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact OmniDownloader",
+    "url": "http://localhost:3000/contact.html",
+    "description": "Send us your feedback, support tickets, and general questions regarding the media downloader."
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Ambient background blobs -->
+  <div class="ambient-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <div class="container">
+    <!-- Navbar Header -->
+    <nav class="navbar glass-card">
+      <div class="nav-logo">
+        <a href="/">Omni<span>Downloader</span></a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="/about.html">About Us</a></li>
+        <li><a href="/contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="contact-layout">
+      <!-- Contact Form glass card -->
+      <div class="glass-card contact-form-card">
+        <h2>Send a Message</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Fill out the form below and we will respond within 24 to 48 business hours.</p>
+
+        <!-- Feedback Alert Boxes -->
+        <div id="contact-success" class="alert alert-success hidden">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <span id="contact-success-msg">Message sent successfully!</span>
+        </div>
+
+        <div id="contact-error" class="alert alert-error hidden">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <span id="contact-error-msg">Error submitting form.</span>
+        </div>
+
+        <form id="contact-form">
+          <div class="form-group">
+            <label for="contact-name">Your Name</label>
+            <input type="text" id="contact-name" class="form-control" required placeholder="John Doe">
+          </div>
+          
+          <div class="form-group">
+            <label for="contact-email">Email Address</label>
+            <input type="email" id="contact-email" class="form-control" required placeholder="john@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="contact-subject">Subject</label>
+            <input type="text" id="contact-subject" class="form-control" placeholder="Feature Request / Download Issue">
+          </div>
+
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" class="form-control textarea" rows="5" required placeholder="Describe your question or feedback in detail..."></textarea>
+          </div>
+
+          <button type="submit" id="contact-submit" class="search-btn" style="width: 100%; border-radius: 10px; justify-content: center; margin-top: 10px;">
+            <span id="contact-btn-text">Submit Inquiry</span>
+            <div id="contact-btn-spinner" class="spinner hidden"></div>
+          </button>
+        </form>
+      </div>
+
+      <!-- Contact details sidebar -->
+      <div class="contact-details-sidebar">
+        <div class="glass-card details-card">
+          <h3>Support Channels</h3>
+          <p style="margin-bottom: 20px; line-height: 1.5;">Having issues downloading a specific link? Check our <a href="/faq.html" style="color: var(--accent-primary); text-decoration: underline;">FAQ Page</a> first for troubleshooting tips.</p>
+          
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <div>
+              <strong>Email Support</strong>
+              <p><a href="mailto:support@omnidownloader.local">support@omnidownloader.local</a></p>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <div>
+              <strong>Project HQ</strong>
+              <p>100 Digital Boulevard<br>Suite 404, Tech District<br>California, USA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Omni<span>Downloader</span></h3>
+        <p>Your ultimate free media utility for backup and personal offline archiving of public online videos and audio.</p>
+      </div>
+      <div class="footer-links-grid">
+        <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/faq.html">FAQ</a></li>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Legal Policies</h4>
+          <ul>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms & Conditions</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+            <li><a href="/cookie-policy.html">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 OmniDownloader. All rights reserved. Powered by Node.js & yt-dlp. Intended for personal educational backup purposes.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Simple frontend logic inside page for form submissions
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('contact-submit');
+    const btnText = document.getElementById('contact-btn-text');
+    const spinner = document.getElementById('contact-btn-spinner');
+    
+    const successAlert = document.getElementById('contact-success');
+    const successMsg = document.getElementById('contact-success-msg');
+    
+    const errorAlert = document.getElementById('contact-error');
+    const errorMsg = document.getElementById('contact-error-msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      successAlert.classList.add('hidden');
+      errorAlert.classList.add('hidden');
+
+      // Set Loading
+      submitBtn.disabled = true;
+      btnText.classList.add('hidden');
+      spinner.classList.remove('hidden');
+
+      const name = document.getElementById('contact-name').value;
+      const email = document.getElementById('contact-email').value;
+      const subject = document.getElementById('contact-subject').value;
+      const message = document.getElementById('contact-message').value;
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, subject, message })
+        });
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          successMsg.textContent = data.message;
+          successAlert.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error(data.error || 'Failed to submit message.');
+        }
+      } catch (err) {
+        errorMsg.textContent = err.message || 'An error occurred connection to the server.';
+        errorAlert.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        btnText.classList.remove('hidden');
+        spinner.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

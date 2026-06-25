@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions (FAQ) - OmniDownloader</title>
+  <meta name="description" content="Find answers to common questions about using OmniDownloader, download formats (MP4, MP3, M4A), download speeds, security, copyright regulations, and local caching.">
+  <link rel="canonical" href="http://localhost:3000/faq.html">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:3000/faq.html">
+  <meta property="og:title" content="Frequently Asked Questions (FAQ) - OmniDownloader">
+  <meta property="og:description" content="Got questions about video and audio downloads? Read our comprehensive FAQ guide on media extraction, legal rules, and technical steps.">
+  <meta property="og:image" content="http://localhost:3000/favicon.png">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is OmniDownloader and how does it work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OmniDownloader is a local web application utility that wraps the powerful scraping engine yt-dlp. When you paste a video or post link, the backend server fetches the public media streams directly from the platform, organizes them by resolution and format (video or audio), and download-streams them to your machine."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is OmniDownloader safe and secure to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, OmniDownloader is completely secure because it runs locally on your own machine. Unlike public download portals, we do not require registration, we do not serve malicious pop-under advertisements, and we do not intercept your data. The downloader acts as a direct bridge between your computer and the target media platform."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What platforms are supported by the downloader?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OmniDownloader mainly focuses on extracting public video, audio, and post data from YouTube (including Shorts, videos, and music clips) and Instagram (Reels, video posts, and carousel slides). However, since it is powered by yt-dlp, it natively supports video extraction from hundreds of other public media websites."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it legal to download videos and audio from YouTube and Instagram?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Downloading public video and audio is legal for personal, educational, and backup purposes under copyright fair-use allowances (such as Section 107 of the US Copyright Act). However, downloading television shows, movies, commercial music videos, or private creators' intellectual property without their explicit permission is strictly prohibited. You are solely responsible for ensuring you have the legal right or permission to backup any URL."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do some video resolutions (like 1080p Full HD) require merging?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "YouTube and other video platforms serve high-quality resolutions (720p, 1080p, 4K) using adaptive streaming (DASH), separating the high-definition video track from the audio track. To give you a high-definition download, OmniDownloader downloads both streams separately in the background and uses local FFmpeg binaries to merge them into a single, synchronized MP4 file container before serving it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does OmniDownloader store or log my search queries and downloaded files?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. OmniDownloader is built on a strict zero-retention privacy policy. We do not maintain database logs of what links you analyze. All temporary file fragments used during the merging or audio-conversion processes are written to a temporary project directory and deleted immediately after the file transmission to your browser completes."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Ambient background blobs -->
+  <div class="ambient-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <div class="container">
+    <!-- Navbar Header -->
+    <nav class="navbar glass-card">
+      <div class="nav-logo">
+        <a href="/">Omni<span>Downloader</span></a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/faq.html" class="active">FAQ</a></li>
+        <li><a href="/about.html">About Us</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content Article -->
+    <article class="glass-card article-content">
+      <h1>Frequently Asked Questions (FAQ)</h1>
+      <p class="article-lead">Have questions about how OmniDownloader works, its safety, legal compliance, or supported video resolutions? Read our detailed FAQ guide below.</p>
+
+      <hr>
+
+      <h2>General Questions</h2>
+      
+      <h3>What is OmniDownloader?</h3>
+      <p>OmniDownloader is a local, lightweight download controller utility. It provides a simple, clean, and adware-free web dashboard to download and archive digital media files locally. By running directly on your computer, it offers maximum speed, security, and full respect for user privacy.</p>
+
+      <h3>How does it download media?</h3>
+      <p>When you paste a link, the backend runs a subprocess parsing metadata from the platform. Once you select a quality option, the server connects to the raw content delivery networks (CDNs), streams the download segments, post-processes them (e.g. converting WebM audio to MP3 or merging HD video and audio), and then hands the completed file directly to your browser's download manager.</p>
+
+      <h3>Is the downloader safe to use?</h3>
+      <p>Absolutely. Public download portals are notorious for hiding redirects, browser hijackers, and pop-up ads. Since OmniDownloader is served locally on your own computer, it contains zero trackers, zero malware, and does not sell or store your browsing data. All execution is self-contained.</p>
+
+      <hr>
+
+      <h2>Technical & Format Questions</h2>
+
+      <h3>What is the difference between MP4, MP3, and M4A?</h3>
+      <ul>
+        <li><strong>MP4</strong>: The most compatible container format for video and audio. Works on virtually every smartphone, tablet, computer, and smart TV.</li>
+        <li><strong>MP3</strong>: The standard compressed format for audio. Ideal for offline listening on audio players. Our backend uses local high-quality encoders to extract audio streams and encode them to 320kbps MP3s.</li>
+        <li><strong>M4A</strong>: An AAC-encoded audio format. It is the raw audio format streamed by video servers. Downloading M4A is faster because it does not require any CPU-heavy audio conversion.</li>
+      </ul>
+
+      <h3>Why does downloading a 1080p Full HD video take a moment before appearing?</h3>
+      <p>Unlike standard 360p or 480p videos which are served as pre-merged files, high-definition streams (720p, 1080p, and above) are hosted on video servers as separate video-only and audio-only streams to save bandwidth. To compile a 1080p video, OmniDownloader must download both files to a temporary server directory, execute our local <code>FFmpeg</code> binary to stitch them together, and then output the file. Our interface features a green pulsing badge and progress indicators during this process so you know exactly what the server is doing.</p>
+
+      <h3>What does the 'Parallel Stream Acceleration' badge mean?</h3>
+      <p>Our downloader backend uses multi-threaded download acceleration. By utilizing 5 concurrent threads, we split large media files into smaller fragments, download them simultaneously, and stitch them back together. This speeds up downloads up to 5 times, helping you bypass bandwidth throttling enforced by some platforms.</p>
+
+      <hr>
+
+      <h2>Copyright & Legal Policies</h2>
+
+      <h3>Is it legal to use OmniDownloader?</h3>
+      <p>Yes. Providing a media player or download wrapper is entirely legal. However, the legality of downloading files depends on the nature of the media and your usage:</p>
+      <ul>
+        <li><strong>Permissible Uses</strong>: Downloading your own uploaded videos, downloading public-domain historical content, downloading Creative Commons licensed clips, or extracting brief snippets for scholarly criticism and fair use.</li>
+        <li><strong>Prohibited Uses</strong>: Downloading copyright-protected commercial material, music videos, private profiles, or re-distributing someone else's media without their license or permission.</li>
+      </ul>
+      <p>We advise all users to review platform licenses and comply with intellectual property laws before downloading.</p>
+
+      <h3>Do you store my downloaded files?</h3>
+      <p>Never. OmniDownloader is designed around data minimisation. Our server maintains zero databases. Any files created in our local <code>temp/</code> folder during format merging are deleted immediately the moment your web browser finished retrieving the download.</p>
+
+      <h3>Does the downloader work on private accounts?</h3>
+      <p>No. OmniDownloader does not ask for or store credentials, meaning it cannot access or extract media from private Instagram accounts, private YouTube uploads, or paid content structures. It only interacts with publicly accessible URLs.</p>
+    </article>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Omni<span>Downloader</span></h3>
+        <p>Your ultimate free media utility for backup and personal offline archiving of public online videos and audio.</p>
+      </div>
+      <div class="footer-links-grid">
+        <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/faq.html">FAQ</a></li>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Legal Policies</h4>
+          <ul>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms & Conditions</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+            <li><a href="/cookie-policy.html">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 OmniDownloader. All rights reserved. Powered by Node.js & yt-dlp. Intended for personal educational backup purposes.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
