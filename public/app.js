@@ -256,10 +256,20 @@ async function handleUrlSubmit(e) {
 
   try {
     const response = await fetch(`/api/info?url=${encodeURIComponent(url)}`);
-    const data = await response.json();
+    
+    let data;
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      data = await response.json();
+    }
 
-    if (!response.ok || !data.success) {
-      throw new Error(data.error || 'Failed to retrieve media details.');
+    if (!response.ok) {
+      const errorMsg = (data && data.error) ? data.error : `Server responded with status ${response.status}.`;
+      throw new Error(errorMsg);
+    }
+
+    if (!data || !data.success) {
+      throw new Error((data && data.error) || 'Failed to retrieve media details.');
     }
 
     currentMediaData = data;

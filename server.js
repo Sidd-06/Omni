@@ -23,6 +23,23 @@ try {
   ffmpegPath = ffmpeg.path;
   console.log(`✔ Using bundled Windows FFmpeg at: ${ffmpegPath}`);
 }
+
+// Detect the Python command available on the host machine
+let pythonCmd = 'python';
+try {
+  const { execSync } = require('child_process');
+  execSync('python --version', { stdio: 'ignore' });
+  console.log('✔ Using "python" command for yt-dlp');
+} catch (e) {
+  try {
+    const { execSync } = require('child_process');
+    execSync('python3 --version', { stdio: 'ignore' });
+    pythonCmd = 'python3';
+    console.log('✔ Using "python3" command fallback for yt-dlp');
+  } catch (err) {
+    console.warn('⚠ Neither "python" nor "python3" was found in PATH. Downloader subprocesses may fail.');
+  }
+}
 const tempDir = path.join(__dirname, 'temp');
 
 // Ensure temp directory exists
@@ -72,7 +89,14 @@ app.get('/api/info', (req, res) => {
     videoUrl
   ];
 
-  const ytDlp = spawn('python', args);
+  const ytDlp = spawn(pythonCmd, args);
+
+  ytDlp.on('error', (err) => {
+    console.error('Failed to start yt-dlp process:', err);
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Downloader engine error (Python/yt-dlp is not available).' });
+    }
+  });
 
   let stdout = '';
   let stderr = '';
@@ -315,10 +339,17 @@ app.get('/api/download-stream', (req, res) => {
   // Add target URL
   args.push(url);
 
-  console.log(`Running: python ${args.join(' ')}`);
+  console.log(`Running: ${pythonCmd} ${args.join(' ')}`);
 
-  const ytDlp = spawn('python', args);
+  const ytDlp = spawn(pythonCmd, args);
   activeDownloads[downloadId] = { process: ytDlp, path: tempPath };
+
+  ytDlp.on('error', (err) => {
+    console.error('Download spawn process error:', err);
+    delete activeDownloads[downloadId];
+    sendSSE({ status: 'error', error: 'Downloader engine error: ' + err.message });
+    res.end();
+  });
 
   let isPostProcessing = false;
 
@@ -494,7 +525,14 @@ app.get('/api/download', (req, res) => {
     url
   ];
 
-  const ytDlp = spawn('python', args);
+  const ytDlp = spawn(pythonCmd, args);
+
+  ytDlp.on('error', (err) => {
+    console.error('Direct download spawn process error:', err);
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Direct download process error: ' + err.message });
+    }
+  });
 
   ytDlp.stdout.pipe(res);
 
