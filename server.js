@@ -110,7 +110,7 @@ app.get('/api/info', (req, res) => {
         '--dump-json',
         '--no-warnings',
         '--flat-playlist',
-        '--extractor-args', 'youtube:player-client=android,web'
+        '--extractor-args', 'youtube:player-client=android,web;youtubepot-bgutilhttp:base_url=http://127.0.0.1:4416'
       ];
 
       const cookiesPath = path.join(__dirname, 'cookies.txt');
@@ -367,7 +367,7 @@ app.get('/api/download-stream', (req, res) => {
     '--concurrent-fragments', '5',
     '--buffer-size', '1024K',
     '--postprocessor-args', 'Merger:-strict -2',
-    '--extractor-args', 'youtube:player-client=android,web'
+    '--extractor-args', 'youtube:player-client=android,web;youtubepot-bgutilhttp:base_url=http://127.0.0.1:4416'
   ];
 
   // Format selection
@@ -601,7 +601,7 @@ app.get('/api/download', (req, res) => {
     '-m', 'yt_dlp',
     '-f', format,
     '-o', '-',
-    '--extractor-args', 'youtube:player-client=android,web'
+    '--extractor-args', 'youtube:player-client=android,web;youtubepot-bgutilhttp:base_url=http://127.0.0.1:4416'
   ];
 
   // Securely add cookies.txt if provided as a Render Secret File

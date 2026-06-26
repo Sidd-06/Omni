@@ -2,6 +2,18 @@
 set -e
 
 echo "===================================================="
+echo "🔄 Starting PO Token provider server on port 4416..."
+echo "===================================================="
+
+# Start the bgutil POT provider HTTP server in the background
+# This generates Proof-of-Origin tokens to bypass YouTube bot checks
+bgutil-pot server &
+POT_PID=$!
+
+# Wait a moment for the POT server to initialize
+sleep 3
+
+echo "===================================================="
 echo "🔄 Generating fresh YouTube cookies from this server IP..."
 echo "===================================================="
 
