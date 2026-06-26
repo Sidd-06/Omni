@@ -63,6 +63,27 @@ const activeDownloads = {};
 const metadataCache = new Map();
 const CACHE_TTL = 10 * 60 * 1000; // 10 minutes TTL
 
+// Cookie refresh helper — regenerates cookies.txt from this server's IP
+const { fetchYouTubeCookies } = require('./get_cookies');
+let lastCookieRefresh = 0;
+const COOKIE_REFRESH_COOLDOWN = 60 * 1000; // 1 minute cooldown between refreshes
+
+async function refreshCookiesIfNeeded() {
+  if (Date.now() - lastCookieRefresh < COOKIE_REFRESH_COOLDOWN) {
+    console.log('[CookieRefresh] Skipping — refreshed recently.');
+    return false;
+  }
+  try {
+    await fetchYouTubeCookies();
+    lastCookieRefresh = Date.now();
+    console.log('[CookieRefresh] Successfully refreshed cookies.txt');
+    return true;
+  } catch (err) {
+    console.error('[CookieRefresh] Failed:', err.message);
+    return false;
+  }
+}
+
 /**
  * Execute yt-dlp to get video/post metadata
  */
@@ -79,59 +100,68 @@ app.get('/api/info', (req, res) => {
     return res.json(cached.data);
   }
 
-  // Spawn yt-dlp to dump json
-  // We use --flat-playlist to load metadata quickly
-  const args = [
-    '-m', 'yt_dlp',
-    '--dump-json',
-    '--no-warnings',
-    '--flat-playlist',
-    '--extractor-args', 'youtube:player-client=android,web'
-  ];
+  /**
+   * Spawn yt-dlp and return a promise with { stdout, stderr, code }
+   */
+  function runYtDlpInfo(url) {
+    return new Promise((resolve) => {
+      const args = [
+        '-m', 'yt_dlp',
+        '--dump-json',
+        '--no-warnings',
+        '--flat-playlist',
+        '--extractor-args', 'youtube:player-client=android,web'
+      ];
 
-  // Securely add cookies.txt if provided as a Render Secret File
-  const cookiesPath = path.join(__dirname, 'cookies.txt');
-  if (fs.existsSync(cookiesPath)) {
-    args.push('--cookies', cookiesPath);
+      const cookiesPath = path.join(__dirname, 'cookies.txt');
+      if (fs.existsSync(cookiesPath)) {
+        args.push('--cookies', cookiesPath);
+      }
+
+      args.push(url);
+
+      const ytDlp = spawn(pythonCmd, args);
+      let stdout = '';
+      let stderr = '';
+
+      ytDlp.on('error', (err) => {
+        console.error('Failed to start yt-dlp process:', err);
+        resolve({ stdout: '', stderr: err.message, code: -1 });
+      });
+
+      ytDlp.stdout.on('data', (data) => { stdout += data.toString(); });
+      ytDlp.stderr.on('data', (data) => { stderr += data.toString(); });
+      ytDlp.on('close', (code) => resolve({ stdout, stderr, code }));
+    });
   }
 
-  args.push(videoUrl);
+  // Run yt-dlp with one auto-retry on bot block
+  (async () => {
+    let result = await runYtDlpInfo(videoUrl);
 
-  const ytDlp = spawn(pythonCmd, args);
-
-  ytDlp.on('error', (err) => {
-    console.error('Failed to start yt-dlp process:', err);
-    if (!res.headersSent) {
-      res.status(500).json({ error: 'Downloader engine error (Python/yt-dlp is not available).' });
+    // If bot-blocked, refresh cookies and retry once
+    if (result.code !== 0 && result.stderr && (result.stderr.includes('confirm you') || result.stderr.includes('not a bot'))) {
+      console.log('[AutoRetry] Bot block detected — refreshing cookies and retrying...');
+      const refreshed = await refreshCookiesIfNeeded();
+      if (refreshed) {
+        result = await runYtDlpInfo(videoUrl);
+      }
     }
-  });
 
-  let stdout = '';
-  let stderr = '';
-
-  ytDlp.stdout.on('data', (data) => {
-    stdout += data.toString();
-  });
-
-  ytDlp.stderr.on('data', (data) => {
-    stderr += data.toString();
-  });
-
-  ytDlp.on('close', (code) => {
-    if (code !== 0) {
-      console.error(`yt-dlp info failed with code ${code}. Stderr: ${stderr}`);
+    if (result.code !== 0) {
+      console.error(`yt-dlp info failed with code ${result.code}. Stderr: ${result.stderr}`);
       let errorMsg = 'Failed to retrieve video details. Make sure the URL is valid.';
-      if (stderr) {
-        if (stderr.includes('No module named')) {
+      if (result.stderr) {
+        if (result.stderr.includes('No module named')) {
           errorMsg = 'Python yt-dlp module is not installed. Run: python -m pip install -U yt-dlp';
-        } else if (stderr.includes('confirm you') || stderr.includes('not a bot')) {
-          errorMsg = 'YouTube has blocked the server request. To bypass this, please export a cookies.txt file from a logged-in YouTube browser tab and place it in the server root.';
+        } else if (result.stderr.includes('confirm you') || result.stderr.includes('not a bot')) {
+          errorMsg = 'YouTube has blocked this server. The server attempted to refresh cookies automatically but the block persists. This is typically caused by datacenter IP restrictions.';
         } else {
-          const match = stderr.match(/ERROR:\s*(.+)/i);
+          const match = result.stderr.match(/ERROR:\s*(.+)/i);
           if (match) {
             errorMsg = match[1].trim();
           } else {
-            errorMsg = stderr.trim().split('\n')[0];
+            errorMsg = result.stderr.trim().split('\n')[0];
           }
         }
       }
@@ -139,7 +169,7 @@ app.get('/api/info', (req, res) => {
     }
 
     try {
-      const lines = stdout.trim().split('\n');
+      const lines = result.stdout.trim().split('\n');
       const entries = lines.map(line => JSON.parse(line));
       
       if (entries.length === 0) {
@@ -258,7 +288,7 @@ app.get('/api/info', (req, res) => {
       console.error('Error parsing yt-dlp metadata JSON:', e);
       res.status(500).json({ error: 'Error processing media metadata.' });
     }
-  });
+  })();
 });
 
 /**

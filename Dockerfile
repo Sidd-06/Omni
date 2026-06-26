@@ -24,11 +24,14 @@ RUN npm install
 # Copy the rest of the application files
 COPY . .
 
+# Make the entrypoint script executable
+RUN chmod +x entrypoint.sh
+
 # Expose port 3000
 EXPOSE 3000
 
 # Set environment to production
 ENV NODE_ENV=production
 
-# Start the Node.js Express server
-CMD [ "npm", "start" ]
+# Use entrypoint to generate fresh cookies before starting the server
+CMD [ "./entrypoint.sh" ]
