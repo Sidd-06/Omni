@@ -120,7 +120,22 @@ app.get('/api/info', (req, res) => {
   ytDlp.on('close', (code) => {
     if (code !== 0) {
       console.error(`yt-dlp info failed with code ${code}. Stderr: ${stderr}`);
-      return res.status(500).json({ error: 'Failed to retrieve video details. Make sure the URL is valid.' });
+      let errorMsg = 'Failed to retrieve video details. Make sure the URL is valid.';
+      if (stderr) {
+        if (stderr.includes('No module named')) {
+          errorMsg = 'Python yt-dlp module is not installed. Run: python -m pip install -U yt-dlp';
+        } else if (stderr.includes('confirm you') || stderr.includes('not a bot')) {
+          errorMsg = 'YouTube has blocked the server request. To bypass this, please export a cookies.txt file from a logged-in YouTube browser tab and place it in the server root.';
+        } else {
+          const match = stderr.match(/ERROR:\s*(.+)/i);
+          if (match) {
+            errorMsg = match[1].trim();
+          } else {
+            errorMsg = stderr.trim().split('\n')[0];
+          }
+        }
+      }
+      return res.status(500).json({ error: errorMsg });
     }
 
     try {
@@ -411,15 +426,33 @@ app.get('/api/download-stream', (req, res) => {
     }
   });
 
+  let stderr = '';
   ytDlp.stderr.on('data', (data) => {
-    console.error(`[yt-dlp stderr]: ${data.toString()}`);
+    const chunk = data.toString();
+    console.error(`[yt-dlp stderr]: ${chunk}`);
+    stderr += chunk;
   });
 
   ytDlp.on('close', (code) => {
     delete activeDownloads[downloadId];
 
     if (code !== 0) {
-      sendSSE({ status: 'error', error: 'Download failed. Please try another quality or check the link.' });
+      let errorMsg = 'Download failed. Please try another quality or check the link.';
+      if (stderr) {
+        if (stderr.includes('No module named')) {
+          errorMsg = 'Python yt-dlp module is not installed. Run: python -m pip install -U yt-dlp';
+        } else if (stderr.includes('confirm you') || stderr.includes('not a bot')) {
+          errorMsg = 'YouTube has blocked this server IP. Please configure cookies.txt to authenticate.';
+        } else {
+          const match = stderr.match(/ERROR:\s*(.+)/i);
+          if (match) {
+            errorMsg = `Download failed: ${match[1].trim()}`;
+          } else {
+            errorMsg = `Download failed: ${stderr.trim().split('\n')[0]}`;
+          }
+        }
+      }
+      sendSSE({ status: 'error', error: errorMsg });
       res.end();
       // Clean up failed file if it exists
       if (fs.existsSync(tempPath)) {
