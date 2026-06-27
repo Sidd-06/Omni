@@ -1236,3 +1236,100 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+/* Responsive Enhancements for Mobile Devices */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 12px;
+  }
+  
+  h1 {
+    font-size: 2.1rem;
+  }
+  
+  .subtitle {
+    font-size: 0.95rem;
+  }
+  
+  .glass-card {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .article-content h1 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .search-container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    border-radius: 16px;
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  .search-icon {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    padding-left: 6px;
+  }
+  
+  .search-input {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 0.95rem;
+  }
+  
+  .paste-btn {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: center;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .search-btn {
+    grid-column: 1 / span 3;
+    grid-row: 2;
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+  
+  .progress-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .option-row {
+    padding: 10px 12px;
+  }
+  
+  .option-info {
+    gap: 8px;
+  }
+  
+  .option-label {
+    font-size: 0.85rem;
+  }
+  
+  .dl-btn-small {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 400px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  .playlist-list {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
+
