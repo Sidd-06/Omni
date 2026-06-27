@@ -118,6 +118,10 @@ app.get('/api/info', (req, res) => {
         args.push('--cookies', cookiesPath);
       }
 
+      if (process.env.PROXY_URL) {
+        args.push('--proxy', process.env.PROXY_URL);
+      }
+
       args.push(url);
 
       const ytDlp = spawn(pythonCmd, args);
@@ -397,6 +401,10 @@ app.get('/api/download-stream', (req, res) => {
     args.push('--cookies', cookiesPath);
   }
 
+  if (process.env.PROXY_URL) {
+    args.push('--proxy', process.env.PROXY_URL);
+  }
+
   // Add target URL
   args.push(url);
 
@@ -608,6 +616,10 @@ app.get('/api/download', (req, res) => {
   const cookiesPath = path.join(__dirname, 'cookies.txt');
   if (fs.existsSync(cookiesPath)) {
     args.push('--cookies', cookiesPath);
+  }
+
+  if (process.env.PROXY_URL) {
+    args.push('--proxy', process.env.PROXY_URL);
   }
 
   args.push(url);
