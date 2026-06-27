@@ -219,10 +219,7 @@ app.get('/api/info', (req, res) => {
           const videoHeights = [...new Set(formats.filter(f => f.vcodec !== 'none' && f.height).map(f => f.height))];
           videoHeights.sort((a, b) => b - a);
 
-          const standardHeights = [1080, 720, 480, 360];
-          const availableHeights = standardHeights.filter(h => videoHeights.includes(h));
-
-          availableHeights.forEach(h => {
+          videoHeights.forEach(h => {
             const videoStreamsForHeight = formats.filter(f => f.vcodec !== 'none' && f.height === h);
             const bestVideo = videoStreamsForHeight.sort((a, b) => (b.filesize || b.filesize_approx || 0) - (a.filesize || a.filesize_approx || 0))[0];
             
@@ -230,9 +227,22 @@ app.get('/api/info', (req, res) => {
               const videoSize = bestVideo.filesize || bestVideo.filesize_approx || 0;
               const combinedSize = videoSize ? (videoSize + audioSize) : null;
               
+              let labelSuffix = 'SD';
+              if (h >= 4320) {
+                labelSuffix = '8K UHD';
+              } else if (h >= 2160) {
+                labelSuffix = '4K UHD';
+              } else if (h >= 1440) {
+                labelSuffix = '2K QHD';
+              } else if (h >= 1080) {
+                labelSuffix = 'Full HD';
+              } else if (h >= 720) {
+                labelSuffix = 'HD';
+              }
+
               videoFormats.push({
                 id: `${h}p`,
-                label: `${h}p (${h === 1080 ? 'Full HD' : h === 720 ? 'HD' : 'SD'})`,
+                label: `${h}p (${labelSuffix})`,
                 ext: 'mp4',
                 resolution: `${h}p`,
                 needMerge: true,
@@ -395,14 +405,10 @@ app.get('/api/download-stream', (req, res) => {
   ];
 
   // Format selection
-  if (format === '1080p') {
-    args.push('-f', 'bestvideo[height<=1080]+bestaudio/best', '--merge-output-format', 'mp4');
-  } else if (format === '720p') {
-    args.push('-f', 'bestvideo[height<=720]+bestaudio/best', '--merge-output-format', 'mp4');
-  } else if (format === '480p') {
-    args.push('-f', 'bestvideo[height<=480]+bestaudio/best', '--merge-output-format', 'mp4');
-  } else if (format === '360p') {
-    args.push('-f', 'bestvideo[height<=360]+bestaudio/best', '--merge-output-format', 'mp4');
+  const heightMatch = format.match(/^(\d+)p$/);
+  if (heightMatch) {
+    const h = parseInt(heightMatch[1], 10);
+    args.push('-f', `bestvideo[height<=${h}]+bestaudio/best`, '--merge-output-format', 'mp4');
   } else if (format === 'mp3') {
     args.push('-f', 'bestaudio', '-x', '--audio-format', 'mp3', '--audio-quality', '0');
   } else if (format === 'm4a') {

@@ -60,7 +60,7 @@
       },
       {
         "@type": "Question",
-        "name": "Why do some video resolutions (like 1080p Full HD) require merging?",
+        "name": "Why do some video resolutions (like 1080p Full HD & 4K Ultra HD) require merging?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "YouTube and other video platforms serve high-quality resolutions (720p, 1080p, 4K) using adaptive streaming (DASH), separating the high-definition video track from the audio track. To give you a high-definition download, OmniDownloader downloads both streams separately in the background and uses local FFmpeg binaries to merge them into a single, synchronized MP4 file container before serving it."
@@ -129,8 +129,8 @@
         <li><strong>M4A</strong>: An AAC-encoded audio format. It is the raw audio format streamed by video servers. Downloading M4A is faster because it does not require any CPU-heavy audio conversion.</li>
       </ul>
 
-      <h3>Why does downloading a 1080p Full HD video take a moment before appearing?</h3>
-      <p>Unlike standard 360p or 480p videos which are served as pre-merged files, high-definition streams (720p, 1080p, and above) are hosted on video servers as separate video-only and audio-only streams to save bandwidth. To compile a 1080p video, OmniDownloader must download both files to a temporary server directory, execute our local <code>FFmpeg</code> binary to stitch them together, and then output the file. Our interface features a green pulsing badge and progress indicators during this process so you know exactly what the server is doing.</p>
+      <h3>Why does downloading a high-definition or 4K video take a moment before appearing?</h3>
+      <p>Unlike standard 360p or 480p videos which are served as pre-merged files, high-definition streams (720p, 1080p, and above) are hosted on video servers as separate video-only and audio-only streams to save bandwidth. To compile a high-quality video, OmniDownloader must download both files to a temporary server directory, execute our local <code>FFmpeg</code> binary to stitch them together, and then output the file. Our interface features a green pulsing badge and progress indicators during this process so you know exactly what the server is doing.</p>
 
       <h3>What does the 'Parallel Stream Acceleration' badge mean?</h3>
       <p>Our downloader backend uses multi-threaded download acceleration. By utilizing 5 concurrent threads, we split large media files into smaller fragments, download them simultaneously, and stitch them back together. This speeds up downloads up to 5 times, helping you bypass bandwidth throttling enforced by some platforms.</p>
