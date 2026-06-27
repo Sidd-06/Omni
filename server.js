@@ -84,6 +84,26 @@ async function refreshCookiesIfNeeded() {
   }
 }
 
+function shouldPassCookies() {
+  const cookiesPath = path.join(__dirname, 'cookies.txt');
+  if (!fs.existsSync(cookiesPath)) return false;
+
+  // If we are using a proxy, we should not pass the auto-generated visitor cookies
+  // because they are bound to the datacenter IP and will trigger blocks on the proxy.
+  if (process.env.PROXY_URL) {
+    try {
+      const content = fs.readFileSync(cookiesPath, 'utf8');
+      if (content.includes('auto-generated')) {
+        console.log('[Cookies] Skipping auto-generated cookies because PROXY_URL is active.');
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+  return true;
+}
+
 /**
  * Execute yt-dlp to get video/post metadata
  */
@@ -113,8 +133,8 @@ app.get('/api/info', (req, res) => {
         '--extractor-args', 'youtube:player-client=android,web;youtubepot-bgutilhttp:base_url=http://127.0.0.1:4416'
       ];
 
-      const cookiesPath = path.join(__dirname, 'cookies.txt');
-      if (fs.existsSync(cookiesPath)) {
+      if (shouldPassCookies()) {
+        const cookiesPath = path.join(__dirname, 'cookies.txt');
         args.push('--cookies', cookiesPath);
       }
 
@@ -396,8 +416,8 @@ app.get('/api/download-stream', (req, res) => {
   args.push('-o', tempPath);
 
   // Securely add cookies.txt if provided as a Render Secret File
-  const cookiesPath = path.join(__dirname, 'cookies.txt');
-  if (fs.existsSync(cookiesPath)) {
+  if (shouldPassCookies()) {
+    const cookiesPath = path.join(__dirname, 'cookies.txt');
     args.push('--cookies', cookiesPath);
   }
 
@@ -613,8 +633,8 @@ app.get('/api/download', (req, res) => {
   ];
 
   // Securely add cookies.txt if provided as a Render Secret File
-  const cookiesPath = path.join(__dirname, 'cookies.txt');
-  if (fs.existsSync(cookiesPath)) {
+  if (shouldPassCookies()) {
+    const cookiesPath = path.join(__dirname, 'cookies.txt');
     args.push('--cookies', cookiesPath);
   }
 
