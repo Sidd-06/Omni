@@ -3,29 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OmniDownloader - Free Video & Audio Downloader | YouTube & Instagram</title>
+  <title>OmniDownloader - Free Video &amp; Audio Downloader | YouTube &amp; Instagram</title>
   <meta name="description" content="OmniDownloader is a fast and free tool to download videos, audio, and posts from YouTube, Instagram, and more in high quality (up to 4K Ultra HD) and MP3.">
-  <link rel="canonical" href="http://localhost:3000/">
+  <link rel="canonical" href="https://omni-s3au.onrender.com/">
+
+  <!-- Preconnect to external origins for faster resource loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+
+  <!-- Google Fonts: non-render-blocking (display=swap already in URL) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap">
+
+  <!-- Inline SVG favicon — eliminates 537 KB PNG download -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%236366f1'/><path d='M50 22 L50 62 M34 48 L50 64 L66 48' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round' fill='none'/><rect x='28' y='70' width='44' height='8' rx='4' fill='white'/></svg>">
+  <!-- Fallback PNG favicon for browsers that don't support SVG favicons -->
+  <link rel="icon" type="image/png" href="favicon.png" sizes="any">
+
+  <!-- Stylesheet (fonts now loaded via <link> above, not @import) -->
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="favicon.png">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:3000/">
-  <meta property="og:title" content="OmniDownloader - Free Video & Audio Downloader">
+  <meta property="og:url" content="https://omni-s3au.onrender.com/">
+  <meta property="og:title" content="OmniDownloader - Free Video &amp; Audio Downloader">
   <meta property="og:description" content="Download videos, audio, and posts from YouTube, Instagram, and more in high quality instantly. Safe, free, and local.">
-  <meta property="og:image" content="http://localhost:3000/favicon.png">
+  <meta property="og:image" content="https://omni-s3au.onrender.com/favicon.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="http://localhost:3000/">
-  <meta property="twitter:title" content="OmniDownloader - Free Video & Audio Downloader">
+  <meta property="twitter:url" content="https://omni-s3au.onrender.com/">
+  <meta property="twitter:title" content="OmniDownloader - Free Video &amp; Audio Downloader">
   <meta property="twitter:description" content="Download videos, audio, and posts from YouTube, Instagram, and more in high quality instantly. Safe, free, and local.">
-  <meta property="twitter:image" content="http://localhost:3000/favicon.png">
+  <meta property="twitter:image" content="https://omni-s3au.onrender.com/favicon.png">
 
-  <!-- Google AdSense -->
+  <!-- AdSense account meta (no script here — script loaded deferred below) -->
   <meta name="google-adsense-account" content="ca-pub-3194129323296737">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3194129323296737" crossorigin="anonymous"></script>
 
   <!-- JSON-LD Schema Markup -->
   <script type="application/ld+json">
@@ -33,8 +47,8 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "OmniDownloader",
-    "url": "http://localhost:3000/",
-    "image": "http://localhost:3000/favicon.png",
+    "url": "https://omni-s3au.onrender.com/",
+    "image": "https://omni-s3au.onrender.com/favicon.png",
     "description": "High-quality video and audio downloader supporting YouTube and Instagram.",
     "applicationCategory": "Utility",
     "operatingSystem": "All",
@@ -45,15 +59,6 @@
       "priceCurrency": "USD"
     }
   }
-  </script>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E0BSNV9M1V"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-E0BSNV9M1V');
   </script>
 </head>
 <body>
@@ -78,169 +83,172 @@
       </ul>
     </nav>
 
-    <!-- Error Alert Box -->
-    <div id="alert-box" class="alert alert-error hidden">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-      <span id="alert-message">Error message goes here</span>
-    </div>
-
-    <div class="glass-card">
-      <form id="url-form">
-        <div class="search-container">
-          <!-- Input row: icon + text field -->
-          <div class="search-input-row">
-            <div class="search-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-            </div>
-            <input 
-              type="url" 
-              id="url-input" 
-              class="search-input" 
-              placeholder="Paste YouTube or Instagram link here..." 
-              required 
-              autocomplete="off"
-            >
-          </div>
-          <!-- Button row: paste + submit -->
-          <div class="search-btn-row">
-            <button type="button" id="paste-btn" class="paste-btn">Paste</button>
-            <button type="submit" id="submit-btn" class="search-btn">
-              <span id="btn-text">Analyze Link</span>
-              <div id="btn-spinner" class="spinner hidden"></div>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <!-- Loading Skeleton Card -->
-    <div id="skeleton-card" class="glass-card hidden">
-      <div class="media-preview">
-        <div class="thumbnail-container skeleton"></div>
-        <div class="media-details">
-          <div>
-            <div class="skeleton-text skeleton" style="width: 80%; height: 24px;"></div>
-            <div class="skeleton-text skeleton" style="width: 45%; height: 16px;"></div>
-          </div>
-          <div class="skeleton skeleton-btn" style="border-radius: 100px;"></div>
-        </div>
+    <!-- Main content landmark for accessibility -->
+    <main>
+      <!-- Error Alert Box -->
+      <div id="alert-box" class="alert alert-error hidden">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <span id="alert-message">Error message goes here</span>
       </div>
-    </div>
 
-    <!-- Media Details Card -->
-    <div id="media-card" class="glass-card hidden">
-      <div id="media-preview-container" class="media-preview">
-        <!-- Thumbnail -->
-        <div class="thumbnail-container">
-          <img id="media-thumb" class="thumbnail-img" src="" alt="Thumbnail">
-          <span id="media-duration" class="duration-tag">00:00</span>
-        </div>
-
-        <!-- Details & Formats -->
-        <div class="media-details">
-          <div>
-            <h2 id="media-title" class="media-title">Video Title</h2>
-            <div class="media-creator">
-              <span class="creator-avatar"></span>
-              <span id="media-uploader">Channel Name</span>
+      <div class="glass-card">
+        <form id="url-form">
+          <div class="search-container">
+            <!-- Input row: icon + text field -->
+            <div class="search-input-row">
+              <div class="search-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              </div>
+              <input 
+                type="url" 
+                id="url-input" 
+                class="search-input" 
+                placeholder="Paste YouTube or Instagram link here..." 
+                required 
+                autocomplete="off"
+              >
+            </div>
+            <!-- Button row: paste + submit -->
+            <div class="search-btn-row">
+              <button type="button" id="paste-btn" class="paste-btn">Paste</button>
+              <button type="submit" id="submit-btn" class="search-btn">
+                <span id="btn-text">Analyze Link</span>
+                <div id="btn-spinner" class="spinner hidden"></div>
+              </button>
             </div>
           </div>
+        </form>
+      </div>
 
-          <div class="tabs-container">
-            <div class="tabs-header">
-              <button type="button" id="tab-video" class="tab-btn active">Video</button>
-              <button type="button" id="tab-audio" class="tab-btn">Audio Only</button>
+      <!-- Loading Skeleton Card -->
+      <div id="skeleton-card" class="glass-card hidden">
+        <div class="media-preview">
+          <div class="thumbnail-container skeleton"></div>
+          <div class="media-details">
+            <div>
+              <div class="skeleton-text skeleton" style="width: 80%; height: 24px;"></div>
+              <div class="skeleton-text skeleton" style="width: 45%; height: 16px;"></div>
             </div>
-
-            <!-- Video Options Panel -->
-            <div id="panel-video" class="tab-pane active">
-              <div id="video-formats" class="options-grid">
-                <!-- Dynamically Populated -->
-              </div>
-            </div>
-
-            <!-- Audio Options Panel -->
-            <div id="panel-audio" class="tab-pane">
-              <div id="audio-formats" class="options-grid">
-                <!-- Dynamically Populated -->
-              </div>
-            </div>
+            <div class="skeleton skeleton-btn" style="border-radius: 100px;"></div>
           </div>
         </div>
       </div>
 
-      <!-- Carousel Slides for Instagram Posts (if applicable) -->
-      <div id="playlist-section" class="playlist-container hidden">
-        <h3 class="playlist-header">Post Contents (Slides)</h3>
-        <div id="playlist-list" class="playlist-list">
+      <!-- Media Details Card -->
+      <div id="media-card" class="glass-card hidden">
+        <div id="media-preview-container" class="media-preview">
+          <!-- Thumbnail -->
+          <div class="thumbnail-container">
+            <img id="media-thumb" class="thumbnail-img" src="" alt="Video thumbnail" loading="lazy" decoding="async" width="280" height="158">
+            <span id="media-duration" class="duration-tag">00:00</span>
+          </div>
+
+          <!-- Details & Formats -->
+          <div class="media-details">
+            <div>
+              <h2 id="media-title" class="media-title">Video Title</h2>
+              <div class="media-creator">
+                <span class="creator-avatar"></span>
+                <span id="media-uploader">Channel Name</span>
+              </div>
+            </div>
+
+            <div class="tabs-container">
+              <div class="tabs-header">
+                <button type="button" id="tab-video" class="tab-btn active">Video</button>
+                <button type="button" id="tab-audio" class="tab-btn">Audio Only</button>
+              </div>
+
+              <!-- Video Options Panel -->
+              <div id="panel-video" class="tab-pane active">
+                <div id="video-formats" class="options-grid">
+                  <!-- Dynamically Populated -->
+                </div>
+              </div>
+
+              <!-- Audio Options Panel -->
+              <div id="panel-audio" class="tab-pane">
+                <div id="audio-formats" class="options-grid">
+                  <!-- Dynamically Populated -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carousel Slides for Instagram Posts (if applicable) -->
+        <div id="playlist-section" class="playlist-container hidden">
+          <h3 class="playlist-header">Post Contents (Slides)</h3>
+          <div id="playlist-list" class="playlist-list">
+            <!-- Dynamically Populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Download Progress Card -->
+      <div id="progress-card" class="glass-card hidden">
+        <div class="progress-container">
+          <div class="progress-header">
+            <h3 id="progress-file-title" class="progress-title">Downloading Media...</h3>
+            <button type="button" id="cancel-dl-btn" class="cancel-link">Cancel</button>
+          </div>
+          
+          <div class="progress-bar-bg">
+            <div id="progress-bar-fill" class="progress-bar-fill"></div>
+          </div>
+
+          <div id="processing-msg" class="processing-loader hidden">
+            <div class="pulse-dot"></div>
+            <div class="pulse-dot"></div>
+            <div class="pulse-dot"></div>
+            <span id="processing-text">Processing files... Please wait...</span>
+          </div>
+
+          <div id="progress-stats-row" class="progress-stats">
+            <div class="stat-box">
+              <div class="stat-label">Progress</div>
+              <div id="stat-percent" class="stat-val">0%</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Speed</div>
+              <div id="stat-speed" class="stat-val">0 MB/s</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Size</div>
+              <div id="stat-size" class="stat-val">0 MB</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">ETA</div>
+              <div id="stat-eta" class="stat-val">00:00</div>
+            </div>
+          </div>
+          <div class="speed-badge-container">
+            <span class="speed-boost-badge">⚡ Parallel Stream Acceleration (5x Threads) Active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Downloads Card -->
+      <div id="history-card" class="glass-card hidden">
+        <div class="history-header">
+          <h3 class="history-title">Recent Downloads</h3>
+          <button type="button" id="clear-history-btn" class="clear-history-btn">Clear History</button>
+        </div>
+        <div id="history-list" class="history-list">
           <!-- Dynamically Populated -->
         </div>
       </div>
-    </div>
 
-    <!-- Download Progress Card -->
-    <div id="progress-card" class="glass-card hidden">
-      <div class="progress-container">
-        <div class="progress-header">
-          <h3 id="progress-file-title" class="progress-title">Downloading Media...</h3>
-          <button type="button" id="cancel-dl-btn" class="cancel-link">Cancel</button>
-        </div>
-        
-        <div class="progress-bar-bg">
-          <div id="progress-bar-fill" class="progress-bar-fill"></div>
-        </div>
-
-        <div id="processing-msg" class="processing-loader hidden">
-          <div class="pulse-dot"></div>
-          <div class="pulse-dot"></div>
-          <div class="pulse-dot"></div>
-          <span id="processing-text">Processing files... Please wait...</span>
-        </div>
-
-        <div id="progress-stats-row" class="progress-stats">
-          <div class="stat-box">
-            <div class="stat-label">Progress</div>
-            <div id="stat-percent" class="stat-val">0%</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-label">Speed</div>
-            <div id="stat-speed" class="stat-val">0 MB/s</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-label">Size</div>
-            <div id="stat-size" class="stat-val">0 MB</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-label">ETA</div>
-            <div id="stat-eta" class="stat-val">00:00</div>
-          </div>
-        </div>
-        <div class="speed-badge-container">
-          <span class="speed-boost-badge">⚡ Parallel Stream Acceleration (5x Threads) Active</span>
-        </div>
+      <!-- Instructions Card -->
+      <div class="glass-card instructions-card">
+        <h3>Supported Content</h3>
+        <ul>
+          <li><strong>YouTube</strong>: Download videos in 4K UHD, 1440p QHD, 1080p Full HD, 720p HD, and other resolutions, or extract original M4A and converted MP3 audio.</li>
+          <li><strong>Instagram</strong>: Download Reels, Videos, single photos, or entire carousel slides.</li>
+          <li><strong>Unified Engine</strong>: Powered by a local background utility that handles platform updates automatically.</li>
+        </ul>
       </div>
-    </div>
-
-    <!-- Recent Downloads Card -->
-    <div id="history-card" class="glass-card hidden">
-      <div class="history-header">
-        <h3 class="history-title">Recent Downloads</h3>
-        <button type="button" id="clear-history-btn" class="clear-history-btn">Clear History</button>
-      </div>
-      <div id="history-list" class="history-list">
-        <!-- Dynamically Populated -->
-      </div>
-    </div>
-
-    <!-- Instructions Card -->
-    <div class="glass-card instructions-card">
-      <h3>Supported Content</h3>
-      <ul>
-        <li><strong>YouTube</strong>: Download videos in 4K UHD, 1440p QHD, 1080p Full HD, 720p HD, and other resolutions, or extract original M4A and converted MP3 audio.</li>
-        <li><strong>Instagram</strong>: Download Reels, Videos, single photos, or entire carousel slides.</li>
-        <li><strong>Unified Engine</strong>: Powered by a local background utility that handles platform updates automatically.</li>
-      </ul>
-    </div>
+    </main>
   </div>
 
   <!-- Footer -->
@@ -264,7 +272,7 @@
           <h4>Legal Policies</h4>
           <ul>
             <li><a href="/privacy.html">Privacy Policy</a></li>
-            <li><a href="/terms.html">Terms & Conditions</a></li>
+            <li><a href="/terms.html">Terms &amp; Conditions</a></li>
             <li><a href="/disclaimer.html">Disclaimer</a></li>
             <li><a href="/cookie-policy.html">Cookie Policy</a></li>
           </ul>
@@ -272,10 +280,39 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 OmniDownloader. All rights reserved. Powered by Node.js & yt-dlp. Intended for personal educational backup purposes.</p>
+      <p>&copy; 2026 OmniDownloader. All rights reserved. Powered by Node.js &amp; yt-dlp. Intended for personal educational backup purposes.</p>
     </div>
   </footer>
 
+  <!-- App script -->
   <script src="app.js"></script>
+
+  <!-- Google Analytics — loaded after page is interactive -->
+  <script>
+    window.addEventListener('load', function() {
+      var gtmScript = document.createElement('script');
+      gtmScript.async = true;
+      gtmScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-E0BSNV9M1V';
+      document.head.appendChild(gtmScript);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-E0BSNV9M1V');
+    });
+  </script>
+
+  <!-- Google AdSense — deferred until after page load to avoid blocking FCP/LCP -->
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var adScript = document.createElement('script');
+        adScript.async = true;
+        adScript.crossOrigin = 'anonymous';
+        adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3194129323296737';
+        document.head.appendChild(adScript);
+      }, 3000);
+    });
+  </script>
 </body>
 </html>

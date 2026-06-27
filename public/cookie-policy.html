@@ -5,29 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cookie Policy - OmniDownloader</title>
   <meta name="description" content="Read the OmniDownloader Cookie Policy. Learn about cookies, how we use localStorage data, and third-party vendor advertising cookies.">
-  <link rel="canonical" href="http://localhost:3000/cookie-policy.html">
+  <link rel="canonical" href="https://omni-s3au.onrender.com/cookie-policy.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%236366f1'/><path d='M50 22 L50 62 M34 48 L50 64 L66 48' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round' fill='none'/><rect x='28' y='70' width='44' height='8' rx='4' fill='white'/></svg>">
+  <link rel="icon" type="image/png" href="favicon.png" sizes="any">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="favicon.png">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:3000/cookie-policy.html">
+  <meta property="og:url" content="https://omni-s3au.onrender.com/cookie-policy.html">
   <meta property="og:title" content="Cookie Policy - OmniDownloader">
   <meta property="og:description" content="View our cookie disclosures, local storage configurations, and third-party ad tracking notifications.">
-  <meta property="og:image" content="http://localhost:3000/favicon.png">
-
-  <!-- Google AdSense -->
+  <meta property="og:image" content="https://omni-s3au.onrender.com/favicon.png">
   <meta name="google-adsense-account" content="ca-pub-3194129323296737">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3194129323296737" crossorigin="anonymous"></script>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E0BSNV9M1V"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-E0BSNV9M1V');
-  </script>
 </head>
 <body>
 
@@ -56,7 +50,7 @@
       <h1>Cookie Policy</h1>
       <p class="article-lead">Last Updated: June 25, 2026</p>
       
-      <p>This is the Cookie Policy for OmniDownloader, accessible from http://localhost:3000. Like most professional platforms, this site uses cookies and browser local storage to provide and improve your experience. This document outlines what information they gather, how we use it, and why we sometimes need to store these files.</p>
+      <p>This is the Cookie Policy for OmniDownloader, accessible from https://omni-s3au.onrender.com. Like most professional platforms, this site uses cookies and browser local storage to provide and improve your experience. This document outlines what information they gather, how we use it, and why we sometimes need to store these files.</p>
 
       <hr>
 
@@ -126,5 +120,32 @@
     </div>
   </footer>
 
+<!-- Google Analytics — deferred to avoid blocking FCP/LCP -->
+  <script>
+    window.addEventListener('load', function() {
+      var gtmScript = document.createElement('script');
+      gtmScript.async = true;
+      gtmScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-E0BSNV9M1V';
+      document.head.appendChild(gtmScript);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-E0BSNV9M1V');
+    });
+  </script>
+
+  <!-- Google AdSense — deferred 3s after load -->
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var adScript = document.createElement('script');
+        adScript.async = true;
+        adScript.crossOrigin = 'anonymous';
+        adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3194129323296737';
+        document.head.appendChild(adScript);
+      }, 3000);
+    });
+  </script>
 </body>
 </html>

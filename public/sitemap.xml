@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://localhost:3000/</loc>
+    <loc>https://omni-s3au.onrender.com/</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/faq.html</loc>
+    <loc>https://omni-s3au.onrender.com/faq.html</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/about.html</loc>
+    <loc>https://omni-s3au.onrender.com/about.html</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/contact.html</loc>
+    <loc>https://omni-s3au.onrender.com/contact.html</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/privacy.html</loc>
+    <loc>https://omni-s3au.onrender.com/privacy.html</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/terms.html</loc>
+    <loc>https://omni-s3au.onrender.com/terms.html</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/disclaimer.html</loc>
+    <loc>https://omni-s3au.onrender.com/disclaimer.html</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/cookie-policy.html</loc>
+    <loc>https://omni-s3au.onrender.com/cookie-policy.html</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>

@@ -11,4 +11,4 @@ Allow: /cookie-policy.html
 Disallow: /api/
 Disallow: /temp/
 
-Sitemap: http://localhost:3000/sitemap.xml
+Sitemap: https://omni-s3au.onrender.com/sitemap.xml
