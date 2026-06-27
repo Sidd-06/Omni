@@ -84,26 +84,31 @@
       <span id="alert-message">Error message goes here</span>
     </div>
 
-    <!-- URL Input Card -->
     <div class="glass-card">
       <form id="url-form">
         <div class="search-container">
-          <div class="search-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          <!-- Input row: icon + text field -->
+          <div class="search-input-row">
+            <div class="search-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            </div>
+            <input 
+              type="url" 
+              id="url-input" 
+              class="search-input" 
+              placeholder="Paste YouTube or Instagram link here..." 
+              required 
+              autocomplete="off"
+            >
           </div>
-          <input 
-            type="url" 
-            id="url-input" 
-            class="search-input" 
-            placeholder="Paste YouTube or Instagram link here..." 
-            required 
-            autocomplete="off"
-          >
-          <button type="button" id="paste-btn" class="paste-btn">Paste</button>
-          <button type="submit" id="submit-btn" class="search-btn">
-            <span id="btn-text">Analyze Link</span>
-            <div id="btn-spinner" class="spinner hidden"></div>
-          </button>
+          <!-- Button row: paste + submit -->
+          <div class="search-btn-row">
+            <button type="button" id="paste-btn" class="paste-btn">Paste</button>
+            <button type="submit" id="submit-btn" class="search-btn">
+              <span id="btn-text">Analyze Link</span>
+              <div id="btn-spinner" class="spinner hidden"></div>
+            </button>
+          </div>
         </div>
       </form>
     </div>
