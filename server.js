@@ -11,6 +11,19 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+
+// Explicitly serve robots.txt with correct Content-Type to prevent crawl-block false positives
+app.get('/robots.txt', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
+});
+
+// Explicitly serve sitemap.xml with correct Content-Type
+app.get('/sitemap.xml', (req, res) => {
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Detect if global FFmpeg is available (e.g. in Docker/Linux hosting), otherwise fallback to bundled
