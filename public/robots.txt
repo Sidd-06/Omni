@@ -1,5 +1,2 @@
 User-agent: *
 Allow: /
-Disallow: /api/
-
-Sitemap: https://omni-s3au.onrender.com/sitemap.xml
