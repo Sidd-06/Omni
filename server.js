@@ -23,7 +23,9 @@ app.get('/robots.txt', (req, res) => {
   res.setHeader('Cache-Control', 'public, max-age=86400');
   res.status(200).send(
     'User-agent: *\n' +
-    'Allow: /\n'
+    'Allow: /\n' +
+    '\n' +
+    'Sitemap: https://omni-s3au.onrender.com/sitemap.xml\n'
   );
 });
 
