@@ -12,15 +12,28 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Explicitly serve robots.txt with correct Content-Type to prevent crawl-block false positives
-app.get('/robots.txt', (req, res) => {
-  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-  res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
+// Health check — allows uptime monitors (e.g. UptimeRobot) to keep the server warm
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
 });
 
-// Explicitly serve sitemap.xml with correct Content-Type
+// Inline robots.txt — hardcoded to avoid file I/O failures on cold start
+app.get('/robots.txt', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.status(200).send(
+    'User-agent: *\n' +
+    'Allow: /\n' +
+    'Disallow: /api/\n' +
+    '\n' +
+    'Sitemap: https://omni-s3au.onrender.com/sitemap.xml\n'
+  );
+});
+
+// Inline sitemap.xml — read from disk but with explicit 200 and correct Content-Type
 app.get('/sitemap.xml', (req, res) => {
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=3600');
   res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
 });
 
